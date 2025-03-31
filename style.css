@@ -1,6 +1,11 @@
 * {
   box-sizing: border-box;
 }
+input, button {
+      appearance: none; 
+  cursor: pointer;
+  font-size: 17px !important;
+}
 body {
   background-color: #212121;
   margin: 0;

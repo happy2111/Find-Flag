@@ -58,14 +58,20 @@ const dom = () => {
   const correctCountry = countriesData[correctIndex]; // to'g'ri javob object
   const option = threeRandom(correctIndex); // 3 random varian va 1 to'g'ri
   let nextBtn = document.querySelector(".next");
-  blockImg.innerHTML = `
+  correctCountry.flag
+    ? `${(blockImg.innerHTML = `
           <div class="block__img">
             <img src="${correctCountry.flag}" alt="${correctCountry.name}" /> 
           </div>
-  `;
+  
+  `)}`
+    : (blockImg.innerHTML = `<div class="three-body">
+<div class="three-body__dot"></div>
+<div class="three-body__dot"></div>
+<div class="three-body__dot"></div>
+</div>`);
   blockOptions.innerHTML = "";
 
-  // creating options
   option.forEach((index) => {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -74,14 +80,13 @@ const dom = () => {
     blockOptions.appendChild(btn);
   });
 
-  // coloring && after clicked
   const buttons = document.querySelectorAll(".option__btn");
 
   buttons.forEach((btn) => {
     btn.addEventListener("click", function handleClick(e) {
       const isCorrect = checkAnswer(e.target.textContent, correctCountry.name);
       e.target.style.background = isCorrect ? "green" : "red";
-      score += isCorrect ? 1 : 0; // scrore
+      score += isCorrect ? 1 : 0;
 
       buttons.forEach((button) => {
         button.disabled = true;
@@ -115,13 +120,14 @@ function afterFinish() {
 }
 function playAgain() {
   let blockScore = document.querySelector("#block__score");
-  block.classList.remove("hidden")
-  block.classList.remove("active")
+  block.classList.remove("hidden");
+  block.classList.remove("active");
   blockScore.classList.remove("active");
 }
 
-document.querySelector(".play-again").addEventListener("click", () => {playAgain()})
-
+document.querySelector(".play-again").addEventListener("click", () => {
+  playAgain();
+});
 
 form.addEventListener("submit", (e) => {
   finishCounter += 1;
@@ -131,8 +137,8 @@ form.addEventListener("submit", (e) => {
 
   blockOptions.innerHTML = "";
   if (Number(finish.value) == finishCounter) {
-    afterFinish()
-    score = 0
+    afterFinish();
+    score = 0;
     finishCounter = -1;
     finish.value = "";
     form.reset();
